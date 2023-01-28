@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>54.0</apiVersion>
+    <description>Review the product after approval process and see if product translation is needed</description>
+    <interviewLabel>Manage Product Creation {!$Flow.CurrentDateTime}</interviewLabel>
+    <isTemplate>true</isTemplate>
+    <label>Manage Product and Translation</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <screens>
+        <name>Check_if_Translation_Needed</name>
+        <label>Check if Translation Needed</label>
+        <locationX>176</locationX>
+        <locationY>278</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>Product_Translation_Needed</name>
+            <dataType>Boolean</dataType>
+            <fieldText>Is Product Translation Needed?</fieldText>
+            <fieldType>InputField</fieldType>
+            <helpText>&lt;p&gt;Please check if product needs translation&lt;/p&gt;</helpText>
+            <isRequired>true</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Manage_Product_Creation</name>
+        <label>Manage Product</label>
+        <locationX>176</locationX>
+        <locationY>158</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Check_if_Translation_Needed</targetReference>
+        </connector>
+        <fields>
+            <name>product_approval</name>
+            <fieldText>&lt;p&gt;Product has been &lt;b&gt;approved&lt;/b&gt;. Please review and proceed.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;Review Comments from Storefront Manager:&lt;/b&gt;&lt;/p&gt;&lt;p&gt;{!Comments_From_Storefront_Manager}&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;b style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;Review Comments from Marketing Manager:&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;{!Comments_From_Marketing_Manager}&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Manage_Product_Creation</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <variables>
+        <description>Review comments from Marketing Manager</description>
+        <name>Comments_From_Marketing_Manager</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Review comments from Storefront Manager</description>
+        <name>Comments_From_Storefront_Manager</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Check if product translation is needed or not</description>
+        <name>Is_Product_Translation_Needed</name>
+        <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <elementReference>Product_Translation_Needed</elementReference>
+        </value>
+    </variables>
+</Flow>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Archive_Slack_Channel</name>
+        <label>Archive Slack Channel</label>
+        <locationX>50</locationX>
+        <locationY>278</locationY>
+        <actionName>slackArchiveChannel</actionName>
+        <actionType>slackArchiveChannel</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>slackAppIdForToken</name>
+            <value>
+                <elementReference>Slack_App_Id</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>slackChannelId</name>
+            <value>
+                <elementReference>Slack_Channel_Id</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>slackWorkspaceIdForToken</name>
+            <value>
+                <elementReference>Slack_Workspace_Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <apiVersion>54.0</apiVersion>
+    <decisions>
+        <name>Check_if_Slack_Channel_Provided</name>
+        <label>Check if Slack Channel Provided</label>
+        <locationX>182</locationX>
+        <locationY>158</locationY>
+        <defaultConnectorLabel>Slack Channel Not Provided</defaultConnectorLabel>
+        <rules>
+            <name>Slack_Channel_Provided</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Slack_Channel_Id</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue></stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Archive_Slack_Channel</targetReference>
+            </connector>
+            <label>Slack Channel Provided</label>
+        </rules>
+    </decisions>
+    <description>Archive a Slack Channel</description>
+    <interviewLabel>Archive Slack Channel {!$Flow.CurrentDateTime}</interviewLabel>
+    <isTemplate>true</isTemplate>
+    <label>Archive Slack Channel</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>56</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Check_if_Slack_Channel_Provided</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <variables>
+        <name>Slack_App_Id</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>Slack_Channel_Id</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>Slack_Workspace_Id</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>
